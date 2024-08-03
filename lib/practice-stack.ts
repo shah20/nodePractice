@@ -14,15 +14,15 @@ export class PracticeStack extends cdk.Stack {
     //   visibilityTimeout: cdk.Duration.seconds(300)
     // });
 
-    const myFunction = new lambda.Function(this, 'HelloWorldFunction', {
+    const myFunction = new lambda.Function(this, 'InlineHelloWorld', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      handler: 'hello.handler',
-      functionName: 'HelloWorldFunction',
+      handler: 'index.handler',
+      functionName: 'InlineHelloWorld',
       code: lambda.Code.fromInline(`
         exports.handler = async function(event) {
           return {
             statusCode: 200,
-            body: JSON.stringify('Hello from Lambda!'),
+            body: JSON.stringify('Hello CDK!'),
           };
         };
       `),

@@ -13,7 +13,8 @@
     "cdk": "cdk",
     "listStacks": "cdk list",
     "synth": "export CDK_PACKAGE_MANAGER=yarn cdk synth",
-    "deploy": "cdk deploy"
+    "deploy": "cdk deploy",
+    "diff": "cdk diff"
   },
   "keywords": [],
   "author": "",
