@@ -306,6 +306,11 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/config@^3.3.4":
+  version "3.3.4"
+  resolved "https://schoology.jfrog.io/schoology/api/npm/npm/@types/config/-/config-3.3.4.tgz#e46d1ee74f9b0c53645f644dd5f3ba5bedc68d76"
+  integrity sha512-qFiTLnWy+TdPSMIXFHP+87lFXFRM4SXjRS+CSB66+56TrpLNw003y1sh7DGaaC1NGesxgKoT5FDy6dyA1Xju/g==
+
 "@types/connect@*":
   version "3.4.38"
   resolved "https://schoology.jfrog.io/schoology/api/npm/npm/@types/connect/-/connect-3.4.38.tgz#5ba7f3bc4fbbdeaff8dded952e5ff2cc53f8d858"
@@ -599,6 +604,13 @@ concat-stream@^1.5.2:
     inherits "^2.0.3"
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
+
+config@^3.3.12:
+  version "3.3.12"
+  resolved "https://schoology.jfrog.io/schoology/api/npm/npm/config/-/config-3.3.12.tgz#a10ae66efcc3e48c1879fbb657c86c4ef6c7b25e"
+  integrity sha512-Vmx389R/QVM3foxqBzXO8t2tUikYZP64Q6vQxGrsMpREeJc/aWRnPRERXWsYzOHAumx/AOoILWe6nU3ZJL+6Sw==
+  dependencies:
+    json5 "^2.2.3"
 
 content-disposition@0.5.4, content-disposition@~0.5.2:
   version "0.5.4"

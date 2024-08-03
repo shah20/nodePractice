@@ -1,4 +1,4 @@
-import 'reflect-metadata';
+// Legacy way to create an Express server
 // import express from 'express';
 
 // const app = express();
@@ -12,9 +12,12 @@ import 'reflect-metadata';
 //   console.log(`Server is running on http://localhost:${port}`);
 // });
 
-// this shim is required
+import 'reflect-metadata';
 import { createExpressServer } from 'routing-controllers';
 import { UserController } from './controllers/UserController';
+import config from 'config';
+
+const port = config.get('port');
 
 // creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({
@@ -22,6 +25,6 @@ const app = createExpressServer({
 });
 
 // run express application on port 3000
-app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
 });
