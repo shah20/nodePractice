@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "set-pkg-mngr": "export CDK_PACKAGE_MANAGER=yarn",
+    "start:dev": "nodemon",
     "start": "ts-node src/index.ts",
     "build": "tsc",
     "watch": "tsc -w",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "aws-cdk": "2.151.0",
+    "nodemon": "^3.1.4",
     "@types/config": "^3.3.4",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",

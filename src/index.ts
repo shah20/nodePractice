@@ -17,7 +17,7 @@ import { createExpressServer } from 'routing-controllers';
 import { UserController } from './controllers/UserController';
 import config from 'config';
 
-const port = config.get('port');
+const port = process.env.PORT || config.get('port');
 
 // creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({
