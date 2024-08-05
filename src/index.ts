@@ -13,18 +13,45 @@
 // });
 
 import 'reflect-metadata';
-import { createExpressServer } from 'routing-controllers';
+import { useExpressServer } from 'routing-controllers';
 import { UserController } from './controllers/UserController';
 import config from 'config';
+import express from 'express';
+import { Service } from 'typedi';
+import serverless from 'serverless-http';
 
-const port = process.env.PORT || config.get('port');
+export async function LambdaHandler(): Promise<serverless.Handler> {
+  const app = new App();
+  return serverless(app.expressApplication, { binary: ['application/zip'] });
+}
 
-// creates express app, registers all controller routes and returns you express app instance
-const app = createExpressServer({
-  controllers: [UserController], // we specify controllers we want to use
-});
+const bootstrapApp = async (): Promise<void> => {
+  const app = new App();
+  return app.start();
+};
 
-// run express application on port 3000
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-});
+@Service({ factory: bootstrapApp })
+export class App {
+
+  public readonly expressApplication: express.Application;
+
+  constructor() {
+    this.expressApplication = express();
+    this.initializeControllers();
+  }
+
+  initializeControllers() {
+    useExpressServer(this.expressApplication, {
+      controllers: [UserController],
+    });
+  }
+
+  public async start() {
+    const port = process.env.PORT || config.get('port');
+    this.expressApplication.listen(port, () => {
+      console.log(`Server is running on http://localhost:${port}`);
+    });
+  }
+}
+
+bootstrapApp();
