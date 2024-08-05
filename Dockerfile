@@ -1,5 +1,6 @@
 FROM node:20-alpine
 
+# bash is required for cdk as it used bash to run the commands
 RUN apk add --no-cache bash
 
 WORKDIR /app
@@ -10,12 +11,7 @@ RUN npm install
 
 COPY . .
 
-# Add ARG after npm install to avoid re-running npm install
-ARG DEFAULT_PORT=3000
-
-ENV PORT $DEFAULT_PORT
-
-EXPOSE $PORT
+EXPOSE 3000
 
 # Either set a anonymouse volumne while running container
 # OR add anonymous volume during image building
