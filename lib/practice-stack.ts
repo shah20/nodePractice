@@ -3,11 +3,17 @@ import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import path from 'path';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import { Code, LayerVersion } from 'aws-cdk-lib/aws-lambda';
+import config from 'config';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class PracticeStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
+    
+    const configLayer = new LayerVersion(this, `config-assets-layer`, {
+      code: Code.fromAsset(`${__dirname}/../config`),
+    });
 
     // The code that defines your stack goes here
 
@@ -30,6 +36,11 @@ export class PracticeStack extends cdk.Stack {
       functionName: 'Application',
       entry: path.join(__dirname, 'lambda/index.ts'),
       handler: 'applicationHandler',
+      layers: [configLayer],
+      // config files are not getting passed via layers so adding env variables
+      environment: {
+        PORT: config.get<string>('port'),
+      },
       bundling: {
         nodeModules: ['esbuild'],
         commandHooks: {
