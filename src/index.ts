@@ -1,17 +1,3 @@
-// Legacy way to create an Express server
-// import express from 'express';
-
-// const app = express();
-// const port = 3000;
-
-// app.get('/', (req, res) => {
-//   res.send('Hello, TypeScript with Express!');
-// });
-
-// app.listen(port, () => {
-//   console.log(`Server is running on http://localhost:${port}`);
-// });
-
 import 'reflect-metadata';
 import { useExpressServer } from 'routing-controllers';
 import { UserController } from './controllers/UserController';
@@ -47,9 +33,9 @@ export class App {
   }
 
   public async start() {
-    const port = process.env.PORT || config.get('port');
+    const port = config.get('port');
     this.expressApplication.listen(port, () => {
-      console.log(`Server is running on http://localhost:${port}`);
+      console.log(`Server is running on port:${port}`);
     });
   }
 }

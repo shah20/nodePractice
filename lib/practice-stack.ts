@@ -5,7 +5,6 @@ import path from 'path';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Code, LayerVersion } from 'aws-cdk-lib/aws-lambda';
 import config from 'config';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class PracticeStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -14,13 +13,6 @@ export class PracticeStack extends cdk.Stack {
     const configLayer = new LayerVersion(this, `config-assets-layer`, {
       code: Code.fromAsset(`${__dirname}/../config`),
     });
-
-    // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'CdkQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
 
     // This is a general-purpose construct for creating Lambda functions.
     // const appLambda = new lambda.Function(this, 'Application', {
@@ -36,10 +28,11 @@ export class PracticeStack extends cdk.Stack {
       functionName: 'Application',
       entry: path.join(__dirname, 'lambda/index.ts'),
       handler: 'applicationHandler',
+      // Config files are passed as a layer
       layers: [configLayer],
-      // config files are not getting passed via layers so adding env variables
+      // Lambda extracts the layer contents into the /opt directory in the function execution environment
       environment: {
-        PORT: config.get<string>('port'),
+        NODE_CONFIG_DIR: '/opt',
       },
       bundling: {
         nodeModules: ['esbuild'],
