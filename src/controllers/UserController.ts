@@ -13,26 +13,26 @@ export class UserController {
 
   @Get()
   getAll() {
-    return 'This action returns all users';
+    return this.userService.getAllUsers();
   }
 
   @Get('/:id')
-  getOne(@Param('id') id: number) {
-    return 'This action returns user #' + id;
+  getOne(@Param('id') id: string) {
+    return this.userService.getUserByid(id);
   }
 
   @Post()
   async post(@Body() user: any) {
-    return this.userService.createUser(user);
+    return this.userService.createUpdateUser(user);
   }
 
   @Put('/:id')
-  put(@Param('id') id: number, @Body() user: any) {
-    return `Updating a user... ${id}`;
+  put(@Body() user: any, @Param('id') id: string) {
+    return this.userService.createUpdateUser(user, id);
   }
 
   @Delete('/:id')
-  remove(@Param('id') id: number) {
-    return `Removing user... ${id}`;
+  remove(@Param('id') id: string) {
+    return this.userService.deleteUser(id);
   }
 }
