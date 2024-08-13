@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { useExpressServer } from 'routing-controllers';
-import { UserController } from './controllers/UserController';
 import config from 'config';
 import express from 'express';
 import { Service } from 'typedi';
 import serverless from 'serverless-http';
+import { DBHelperController, UserController } from './controllers';
 
 export async function LambdaHandler(): Promise<serverless.Handler> {
   const app = new App();
@@ -28,7 +28,7 @@ export class App {
 
   initializeControllers() {
     useExpressServer(this.expressApplication, {
-      controllers: [UserController],
+      controllers: [DBHelperController, UserController],
     });
   }
 

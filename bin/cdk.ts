@@ -7,5 +7,9 @@ import config from 'config';
 const app = new cdk.App();
 new PracticeStack(app, 'PracticeStack', {
   env: { account: config.get('deployment.account'), region: config.get('deployment.region') },
+  stackName: `PracticeStack-${process.env.NAMESPACE}`,
+  additionalProps: {
+    namespace: process.env.NAMESPACE,
+  }
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
